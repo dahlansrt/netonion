@@ -1,5 +1,6 @@
 
 using Application.Extensions;
+using Persistence.Extensions;
 
 namespace Web.Api
 {
@@ -17,6 +18,7 @@ namespace Web.Api
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddApplication();
+            builder.Services.AddPersistence();
 
             var app = builder.Build();
 
