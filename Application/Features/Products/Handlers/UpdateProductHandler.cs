@@ -1,13 +1,15 @@
 ﻿using Application.Features.Products.Commands;
+using Application.Features.Products.Notifications;
 using Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Products.Handlers
 {
-    public class UpdateProductHandler(IApplicationDbContext context) : IRequestHandler<UpdateProductCommand>
+    public class UpdateProductHandler(IApplicationDbContext context, IPublisher publisher) : IRequestHandler<UpdateProductCommand>
     {
         private readonly IApplicationDbContext _context = context;
+        private readonly IPublisher _publisher = publisher;
         public async Task Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == request.Id, cancellationToken: cancellationToken);
@@ -20,6 +22,10 @@ namespace Application.Features.Products.Handlers
             product.Sku = request.Product.Sku;
 
             await _context.SaveChangesAsync();
+
+            await _publisher.Publish(new ProductUpdatedNotification(product), cancellationToken);
+
+            return;
         }
     }
 }

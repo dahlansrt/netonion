@@ -11,7 +11,11 @@ namespace Persistence.Extensions
         /// <summary>
         /// Todo:
         /// Read configuration and add context by configuration.
-        /// Example: MSSQL, PostgreSQL, MySql, MongoDB, 
+        /// Example: 
+        ///     MSSQL, 
+        ///     PostgreSQL: https://www.npgsql.org/efcore/, 
+        ///     MySql, 
+        ///     MongoDB, 
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configuration"></param>
