@@ -5,9 +5,9 @@ namespace Web.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class BaseController(IMediator mediator) : ControllerBase
+    public abstract class BaseController(ISender mediator) : ControllerBase
     {
-        private readonly IMediator mediator = mediator;
-        protected IMediator Mediator => this.mediator;
+        private readonly ISender mediator = mediator;
+        protected ISender Mediator => this.mediator;
     }
 }
