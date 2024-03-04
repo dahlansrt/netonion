@@ -17,8 +17,10 @@ namespace Web.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddApplication();
             builder.Services.AddPersistence();
+            builder.Services.AddApplication();
+
+            builder.Services.AddWeatherForecastPersistence<WeatherForecast>();
 
             var app = builder.Build();
 

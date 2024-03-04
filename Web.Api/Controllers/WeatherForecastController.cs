@@ -1,25 +1,21 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class WeatherForecastController(IMediator mediator, Storage<WeatherForecast> storage, ILogger<WeatherForecastController> logger)
+        : BaseControllerV1<WeatherForecast, WeatherForecastController>(mediator, storage, logger)
     {
-        private static readonly string[] Summaries = new[]
-        {
+        private static readonly string[] Summaries =
+        [
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        ];
 
-        private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("summary", Name = "GetWeatherForecast")]
+        public IEnumerable<WeatherForecast> GetSummary()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
